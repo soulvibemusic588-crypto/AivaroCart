@@ -1,0 +1,5 @@
+AivaroCart starter package contents
+- index.html — interactive mobile-first storefront prototype
+- aivarocart_supabase_schema.sql — starter PostgreSQL schema and RLS policies
+- aivarocart_supabase_phone_guide.txt — Android setup guide
+- README_FIRST.txt — limitations and next steps

@@ -1,0 +1,60 @@
+AIVAROCART — ANDROID PHONE SETUP GUIDE
+=====================================
+
+WHAT YOU HAVE
+-------------
+- index.html: interactive storefront prototype. It uses demo products and local browser storage.
+- aivarocart_supabase_schema.sql: starter database schema and baseline Row Level Security policies.
+- README_FIRST.txt: current limitations and recommended build order.
+
+IMPORTANT
+---------
+The HTML prototype is NOT yet connected to Supabase. Its Admin PIN is a demo-only browser lock, not secure authentication. Demo cart/orders are stored in the current browser and do not sync to another phone. Online payments, real AI, delivery APIs, refunds and production order creation are not connected. Do not use this prototype to take real payments or customer orders.
+
+STEP 1 — CREATE A SUPABASE PROJECT
+----------------------------------
+1. On Android, open Chrome and go to https://supabase.com/dashboard
+2. Sign in and create a project named AivaroCart. Keep the database password private.
+3. Choose a suitable available region and wait for provisioning to finish.
+
+STEP 2 — RUN THE STARTER SCHEMA
+-------------------------------
+1. Open the AivaroCart project and go to SQL Editor.
+2. Open a new query.
+3. Open aivarocart_supabase_schema.sql in a text editor, copy the full file and paste it into SQL Editor.
+4. Run it once and review any errors. If it fails partway, stop and inspect the error rather than repeatedly running it.
+5. This schema is a starter foundation; it does not by itself connect the HTML site or complete every feature.
+
+STEP 3 — CREATE YOUR LOGIN AND ADMIN ROLE
+-----------------------------------------
+1. In Supabase Authentication, create/sign up an account using an email you control.
+2. Complete email confirmation if enabled.
+3. Only after that user exists, run the following in SQL Editor, replacing the placeholder with your own account email:
+
+insert into public.user_roles (user_id, role)
+select id, 'admin'::public.app_role
+from auth.users
+where email = 'YOUR-OWN-LOGIN-EMAIL'
+on conflict (user_id) do update set role = 'admin';
+
+Never put this query into the public website. Customers must never be able to assign themselves Admin.
+
+STEP 4 — NEXT DEVELOPMENT TASKS
+-------------------------------
+- Connect Supabase Auth to the frontend.
+- Replace demo products/localStorage with database-backed products, carts and orders.
+- Configure product image Storage buckets and secure upload policies.
+- Build trusted server-side checkout and inventory validation functions.
+- Integrate a payment gateway in test mode and verify signed webhooks server-side.
+- Add a server-side AI function; never put AI/payment secret keys in frontend code.
+- Test RLS using separate customer and Admin accounts before launch.
+- Deploy to HTTPS hosting and configure Auth redirect URLs.
+
+SECURITY
+--------
+- Use only the public/publishable Supabase key in browser code. Never expose a service-role/secret key.
+- Keep RLS enabled and verify every policy.
+- Do not mark payments as paid based on a browser redirect alone.
+- Follow payment-provider eligibility, KYC and account rules. If you are under 18, involve a parent/guardian for account setup where required; do not bypass identity requirements.
+
+If you get an error, share only the error text. Do not share passwords, secret keys, payment credentials, or private customer data.

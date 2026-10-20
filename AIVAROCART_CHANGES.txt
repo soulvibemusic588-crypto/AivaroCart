@@ -1,0 +1,18 @@
+AivaroCart update — Address & map location picker
+
+Added:
+- Normal address autocomplete search remains available.
+- “Select Location on Map” opens a map picker using Leaflet + OpenStreetMap tiles.
+- Search map places, tap map to place a pin, drag the pin, or optionally use device location.
+- Confirming a pin reverse-geocodes the address and feeds coordinates into the road-distance route estimate.
+- Checkout still blocks order creation unless a selected destination has a verified route distance and a valid 6-digit PIN.
+- Name, phone, and full delivery address are required.
+- Distance fee tiers: 1–4 km free; 5–20 km ₹20; 21–35 km ₹30; 36–50 km ₹40; over 50 km ₹50.
+
+Important:
+- This is still a browser-only demo/prototype. Orders are stored locally, and payment options are demo labels.
+- Map tiles/geocoding/routing depend on internet and public third-party services. Availability and response speed are not guaranteed; do not promise a 1–2 second result.
+- Production use requires a backend, service usage-policy review, and server-side validation of destination/distance/fees before order creation.
+
+
+Visual upgrade (Oct 2026): premium glassmorphism, animated modals and cards, mobile-first category tiles, admin category image upload controls, removed public delivery slab explainer. Category images are stored in this browser demo; production needs cloud storage.
